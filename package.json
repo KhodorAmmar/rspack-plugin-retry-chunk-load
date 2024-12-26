@@ -1,5 +1,5 @@
 {
-	"name": "rspack-retry-chunk-load-plugin",
+	"name": "rspack-plugin-retry-chunk-load",
 	"version": "1.0.0",
 	"description": "A rspack plugin to retry loading of chunks that failed to load",
 	"main": "dist/index.js",

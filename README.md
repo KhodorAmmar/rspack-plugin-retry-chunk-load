@@ -1,9 +1,9 @@
-# rspack-retry-chunk-load-plugin
+# rspack-plugin-retry-chunk-load
 
-[![npm version](https://badge.fury.io/js/rspack-retry-chunk-load-plugin.svg)](http://badge.fury.io/js/rspack-retry-chunk-load-plugin)
-[![GitHub issues](https://img.shields.io/github/issues/khodorammar/rspack-retry-chunk-load-plugin.svg)](https://github.com/khodorammar/rspack-retry-chunk-load-plugin/issues)
-[![GitHub stars](https://img.shields.io/github/stars/khodorammar/rspack-retry-chunk-load-plugin.svg)](https://github.com/khodorammar/rspack-retry-chunk-load-plugin/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/khodorammar/rspack-retry-chunk-load-plugin/master/LICENSE)
+[![npm version](https://badge.fury.io/js/rspack-plugin-retry-chunk-load.svg)](http://badge.fury.io/js/rspack-plugin-retry-chunk-load)
+[![GitHub issues](https://img.shields.io/github/issues/khodorammar/rspack-plugin-retry-chunk-load.svg)](https://github.com/khodorammar/rspack-plugin-retry-chunk-load/issues)
+[![GitHub stars](https://img.shields.io/github/stars/khodorammar/rspack-plugin-retry-chunk-load.svg)](https://github.com/khodorammar/rspack-plugin-retry-chunk-load/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/khodorammar/rspack-plugin-retry-chunk-load/master/LICENSE)
 
 A rspack plugin to retry loading of async chunks that failed to load
 
@@ -13,10 +13,10 @@ Inspired by [webpack-retry-load-plugin](https://github.com/mattlewis92/webpack-r
 
 ```javascript
 // rspack.config.js
-import { RetryChunkLoadPlugin } from "rspack-retry-chunk-load-plugin";
+import { RetryChunkLoadPlugin } from "rspack-plugin-retry-chunk-load";
 
 plugins: [
-	new RetryChunkLoadPlugin({
+  new RetryChunkLoadPlugin({
     /**
      * Optional identifier for the cache-busting function. Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
      */
@@ -31,7 +31,7 @@ plugins: [
      * Default is 100ms.
      */
     retryDelay: 100;
-	})
+  })
 ];
 ```
 

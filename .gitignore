@@ -1,0 +1,9 @@
+# TypeScript cache
+*.tsbuildinfo
+
+# Dist files
+dist
+test/e2e/dist
+
+# Dependency directories
+node_modules/

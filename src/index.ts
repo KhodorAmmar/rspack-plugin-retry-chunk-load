@@ -8,6 +8,11 @@ export interface RetryChunkLoadPluginOptions {
 	 */
 	cacheBust?: "default" | "timestamp";
 	/**
+	 * Optional code to be executed in the browser context if after all retries chunk is not loaded.
+	 * if not set - nothing will happen and error will be returned to the chunk loader.
+	 */
+	lastResortScript?: string;
+	/**
 	 * Optional value to set the maximum number of retries to load the chunk.
 	 * Default is 3.
 	 */
@@ -66,6 +71,7 @@ export class RetryChunkLoadPlugin {
               error.message = 'Loading chunk ' + chunkId + ' failed after ${
 								this.options.maxRetries
 							} retries.';
+			  ${this.options.lastResortScript ? this.options.lastResortScript : ''}
               throw error;
             }
             return new Promise(function(resolve) {

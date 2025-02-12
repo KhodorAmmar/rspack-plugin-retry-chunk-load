@@ -7,3 +7,7 @@ test/e2e/dist
 
 # Dependency directories
 node_modules/
+
+# IDE files
+.vscode/
+.idea/

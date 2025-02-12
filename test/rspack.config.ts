@@ -12,8 +12,10 @@ export default {
 	plugins: [
 		new HtmlRspackPlugin(),
 		new RetryChunkLoadPlugin({
+			retryDelay: 500,
 			maxRetries: 3,
-			cacheBust: "timestamp"
+			cacheBust: "timestamp",
+			lastResortScript: "alert('I am definitely a last resort');"
 		})
 	]
 };

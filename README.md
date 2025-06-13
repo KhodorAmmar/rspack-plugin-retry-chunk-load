@@ -16,27 +16,27 @@ Inspired by [webpack-retry-load-plugin](https://github.com/mattlewis92/webpack-r
 import { RetryChunkLoadPlugin } from "rspack-plugin-retry-chunk-load";
 
 plugins: [
-  new RetryChunkLoadPlugin({
-    /**
-     * Optional identifier for the cache-busting function. Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
-     */
-    cacheBust: "timestamp";
-    /**
-     * Optional code to be executed in the browser context if after all retries chunk is not loaded.
-     * if not set - nothing will happen and error will be returned to the chunk loader.
-     */
-    lastResortScript: "window.location.href='/500.html';",
-    /**
-     * Optional value to set the maximum number of retries to load the chunk.
-     * Default is 3.
-     */
-    maxRetries: 3;
-    /**
-     * Optional value to set the amount of time in milliseconds before trying to load the chunk again.
-     * Default is 100ms.
-     */
-    retryDelay: 100;
-  })
+	new RetryChunkLoadPlugin({
+		/**
+		 * Optional identifier for the cache-busting function. Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
+		 */
+		cacheBust: "timestamp",
+		/**
+		 * Optional code to be executed in the browser context if after all retries chunk is not loaded.
+		 * if not set - nothing will happen and error will be returned to the chunk loader.
+		 */
+		lastResortScript: "window.location.href='/500.html'",
+		/**
+		 * Optional value to set the maximum number of retries to load the chunk.
+		 * Default is 3.
+		 */
+		maxRetries: 3,
+		/**
+		 * Optional value to set the amount of time in milliseconds before trying to load the chunk again.
+		 * Default is 100ms.
+		 */
+		retryDelay: 100
+	})
 ];
 ```
 

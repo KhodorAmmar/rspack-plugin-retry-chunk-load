@@ -22,6 +22,16 @@ plugins: [
 		 */
 		cacheBust: "timestamp",
 		/**
+		 * Optional custom query parameter key used when cacheBust is enabled.
+		 *  Examples:
+		 *  cacheBust: "default", cacheBustKey: "v"   -> ?v=true
+		 *  cacheBust: "timestamp", cacheBustKey: "ts" -> ?ts=1699999999999
+		 * 	cacheBust: "default", cacheBustKey: undefined   -> ?cache-bust=true
+		 *  cacheBust: "timestamp", cacheBustKey: undefined -> ?1699999999999
+		 *  If cacheBust is not set, cacheBustKey is ignored.
+		 */
+		cacheBustKey: "key",
+		/**
 		 * Optional code to be executed in the browser context if after all retries chunk is not loaded.
 		 * if not set - nothing will happen and error will be returned to the chunk loader.
 		 */

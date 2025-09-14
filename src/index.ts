@@ -4,9 +4,14 @@ const pluginName = "RetryChunkLoadPlugin";
 
 export interface RetryChunkLoadPluginOptions {
 	/**
-	 * Optional identifier for the cache-busting function. Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
+	 * Optional identifier for the cache-busting function.
+	 * Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
 	 */
 	cacheBust?: "default" | "timestamp";
+	/**
+	 * Optional key to use for cache busting when `cacheBust` is set.
+	 */
+	cacheBustKey?: string;
 	/**
 	 * Optional code to be executed in the browser context if after all retries chunk is not loaded.
 	 * if not set - nothing will happen and error will be returned to the chunk loader.
@@ -46,10 +51,30 @@ export class RetryChunkLoadPlugin {
 			}
 
 			generate() {
-				const getCacheBustString = () =>
-					this.options.cacheBust === "timestamp"
-						? `Date.now()`
-						: '"cache-bust=true"';
+				const getCacheBustString = () => {
+					const { cacheBust, cacheBustKey } = this.options;
+					// Return empty string if cacheBust is not set
+					if (cacheBust !== "default" && cacheBust !== "timestamp") {
+						if (cacheBustKey && typeof console !== "undefined") {
+							console.warn(
+								"[RetryChunkLoadPlugin] 'cacheBustKey' ignored because 'cacheBust' is not set."
+							);
+						}
+						return '""';
+					}
+					// If cacheBustKey is set, use it
+					if (typeof cacheBustKey === "string") {
+						return `"${cacheBustKey}=" + ${
+							cacheBust === "timestamp" ? `Date.now()` : `true`
+						}`;
+					}
+					// If cacheBustKey is not set, use default values
+					else {
+						return cacheBust === "timestamp"
+							? `Date.now()`
+							: `"cache-bust=true"`;
+					}
+				};
 
 				return `
       if (typeof ${RuntimeGlobals.require} !== "undefined") {
@@ -71,7 +96,7 @@ export class RetryChunkLoadPlugin {
               error.message = 'Loading chunk ' + chunkId + ' failed after ${
 								this.options.maxRetries
 							} retries.';
-			  ${this.options.lastResortScript ? this.options.lastResortScript : ''}
+			  ${this.options.lastResortScript ? this.options.lastResortScript : ""}
               throw error;
             }
             return new Promise(function(resolve) {

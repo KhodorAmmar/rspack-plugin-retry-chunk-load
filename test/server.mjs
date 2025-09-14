@@ -17,7 +17,7 @@ app.get("/test_fixture_async_mjs.js", (request, response, next) => {
 	}
 });
 
-app.get("/test_fixture_async_with_last_resort_mjs.js", (request, response, next) => {
+app.get("/test_fixture_async_with_last_resort_mjs.js", (request, response) => {
 	response.status(500).send("fail");
 });
 

@@ -15,6 +15,7 @@ export default {
 			retryDelay: 500,
 			maxRetries: 3,
 			cacheBust: "timestamp",
+			cacheBustKey: "key",
 			lastResortScript: "alert('I am definitely a last resort');"
 		})
 	]

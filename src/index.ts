@@ -78,14 +78,22 @@ export class RetryChunkLoadPlugin {
 
 				return `
       if (typeof ${RuntimeGlobals.require} !== "undefined") {
-        var originalGet = ${RuntimeGlobals.getChunkScriptFilename};
         var originalEnsure = ${RuntimeGlobals.ensureChunk};
         var queryMap = {};
         var countMap = {};
-        ${RuntimeGlobals.getChunkScriptFilename} = function(chunkId) {
-          var result = originalGet(chunkId);
-          return result + (queryMap.hasOwnProperty(chunkId) ? '?' + queryMap[chunkId] : '');
+        var withRetryQuery = function(getFilename) {
+          return function(chunkId) {
+            var result = getFilename(chunkId);
+            return result + (queryMap.hasOwnProperty(chunkId) ? '?' + queryMap[chunkId] : '');
+          };
         };
+        ${RuntimeGlobals.getChunkScriptFilename} = withRetryQuery(${RuntimeGlobals.getChunkScriptFilename});
+        if (typeof ${RuntimeGlobals.getChunkCssFilename} === "function") {
+          ${RuntimeGlobals.getChunkCssFilename} = withRetryQuery(${RuntimeGlobals.getChunkCssFilename});
+        }
+        if (typeof ${RuntimeGlobals.require}.miniCssF === "function") {
+          ${RuntimeGlobals.require}.miniCssF = withRetryQuery(${RuntimeGlobals.require}.miniCssF);
+        }
         ${RuntimeGlobals.ensureChunk} = function(chunkId) {
           var result = originalEnsure(chunkId);
           return result.catch(function(error) {

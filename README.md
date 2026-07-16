@@ -19,6 +19,7 @@ plugins: [
 	new RetryChunkLoadPlugin({
 		/**
 		 * Optional identifier for the cache-busting function. Can be 'default' (`?cache-bust=true`) or 'timestamp' (Date.now()).
+		 * Applied to both JS and CSS chunk requests on retries.
 		 */
 		cacheBust: "timestamp",
 		/**

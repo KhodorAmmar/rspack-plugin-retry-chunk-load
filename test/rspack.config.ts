@@ -9,6 +9,7 @@ export default {
 	entry: {
 		main: "./test/fixture/index.mjs"
 	},
+	experiments: { css: true },
 	plugins: [
 		new HtmlRspackPlugin(),
 		new RetryChunkLoadPlugin({

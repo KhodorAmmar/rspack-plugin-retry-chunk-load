@@ -17,6 +17,14 @@ app.get("/test_fixture_async_mjs.js", (request, response, next) => {
 	}
 });
 
+app.get("/test_fixture_async_css_mjs.css", (request, response, next) => {
+	if (request.query["r"] === "2") {
+		next();
+	} else {
+		response.status(500).send("fail");
+	}
+});
+
 app.get("/test_fixture_async_with_last_resort_mjs.js", (request, response) => {
 	response.status(500).send("fail");
 });

@@ -119,7 +119,7 @@ export class RetryChunkLoadPlugin {
 
 		compiler.hooks.thisCompilation.tap(pluginName, compilation => {
 			compilation.hooks.runtimeRequirementInTree
-				.for(RuntimeGlobals.ensureChunkHandlers)
+				.for(compiler.rspack.RuntimeGlobals.ensureChunkHandlers)
 				.tap(pluginName, chunk => {
 					if (chunk.canBeInitial()) {
 						compilation.addRuntimeModule(

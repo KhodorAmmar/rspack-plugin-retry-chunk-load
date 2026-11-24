@@ -1,4 +1,4 @@
-import { type Compiler, RuntimeGlobals } from "@rspack/core";
+import type { Compiler } from "@rspack/core";
 
 const pluginName = "RetryChunkLoadPlugin";
 
@@ -41,7 +41,7 @@ export class RetryChunkLoadPlugin {
 	}
 
 	apply(compiler: Compiler) {
-		const { RuntimeModule } = compiler.webpack;
+		const { RuntimeGlobals, RuntimeModule } = compiler.rspack;
 
 		class CustomRuntimeModule extends RuntimeModule {
 			options: RetryChunkLoadPluginOptions;
@@ -119,7 +119,7 @@ export class RetryChunkLoadPlugin {
 
 		compiler.hooks.thisCompilation.tap(pluginName, compilation => {
 			compilation.hooks.runtimeRequirementInTree
-				.for(compiler.rspack.RuntimeGlobals.ensureChunkHandlers)
+				.for(RuntimeGlobals.ensureChunkHandlers)
 				.tap(pluginName, chunk => {
 					if (chunk.canBeInitial()) {
 						compilation.addRuntimeModule(
